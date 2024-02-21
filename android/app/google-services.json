@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "167564632543",
+    "project_id": "flutter-sns-udemy",
+    "storage_bucket": "flutter-sns-udemy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167564632543:android:cb3c7f5db9dae11025246a",
+        "android_client_info": {
+          "package_name": "com.example.instagram_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "167564632543-1ctacv1s1hoedvnnvtea4uah5695glnl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMiBUYC2mpQcCXEMS2XL_eRVACds8J3eo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "167564632543-1ctacv1s1hoedvnnvtea4uah5695glnl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
