@@ -1,7 +1,13 @@
-# Commands
+# Generator Commands
 
 $ flutter pub run build_runner build
 
+# Firebase Commands
+$ npm install -g firebase-tools
+$ firebase login
+$ dart pub global activate flutterfire_cli
+$ export PATH="$PATH":"$HOME/.pub-cache/bin"
+$ flutterfire configure
 
 # Youtube
 
