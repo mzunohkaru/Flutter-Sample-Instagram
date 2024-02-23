@@ -12,6 +12,8 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
+
+
   # Firebase
   firebase_core: any
   firebase_auth: any
@@ -36,6 +38,9 @@ dependencies:
   # ログ
   logger: any
 
+
+  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -50,12 +55,8 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 flutter:
 
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
   #   - images/a_dot_ham.jpeg

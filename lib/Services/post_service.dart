@@ -65,6 +65,11 @@ class PostService {
       'likeUsers': FieldValue.arrayUnion([currentUserUid]),
       'likes': postLikes + 1
     });
+
+    final postOwnerUid =
+        (await PostCollections.doc(postId).get()).data()!['ownerUid'];
+    await UserCollections.doc(postOwnerUid)
+        .update({'likes': FieldValue.increment(1)});
   }
 
   Future unlike(
@@ -77,5 +82,10 @@ class PostService {
       'likeUsers': FieldValue.arrayRemove([currentUserUid]),
       'likes': postLikes - 1
     });
+
+    final postOwnerUid =
+        (await PostCollections.doc(postId).get()).data()!['ownerUid'];
+    await UserCollections.doc(postOwnerUid)
+        .update({'likes': FieldValue.increment(-1)});
   }
 }

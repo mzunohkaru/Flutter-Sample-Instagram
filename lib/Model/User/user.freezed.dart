@@ -27,6 +27,7 @@ mixin _$User {
   int get followers => throw _privateConstructorUsedError;
   int get following => throw _privateConstructorUsedError;
   int get likes => throw _privateConstructorUsedError;
+  List<Post>? get post => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,8 @@ abstract class $UserCopyWith<$Res> {
       String? profileImageUrl,
       int followers,
       int following,
-      int likes});
+      int likes,
+      List<Post>? post});
 }
 
 /// @nodoc
@@ -68,6 +70,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? followers = null,
     Object? following = null,
     Object? likes = null,
+    Object? post = freezed,
   }) {
     return _then(_value.copyWith(
       userId: null == userId
@@ -98,6 +101,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
               as int,
+      post: freezed == post
+          ? _value.post
+          : post // ignore: cast_nullable_to_non_nullable
+              as List<Post>?,
     ) as $Val);
   }
 }
@@ -116,7 +123,8 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String? profileImageUrl,
       int followers,
       int following,
-      int likes});
+      int likes,
+      List<Post>? post});
 }
 
 /// @nodoc
@@ -136,6 +144,7 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? followers = null,
     Object? following = null,
     Object? likes = null,
+    Object? post = freezed,
   }) {
     return _then(_$UserImpl(
       userId: null == userId
@@ -166,6 +175,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
               as int,
+      post: freezed == post
+          ? _value._post
+          : post // ignore: cast_nullable_to_non_nullable
+              as List<Post>?,
     ));
   }
 }
@@ -180,7 +193,9 @@ class _$UserImpl implements _User {
       required this.profileImageUrl,
       required this.followers,
       required this.following,
-      required this.likes});
+      required this.likes,
+      required final List<Post>? post})
+      : _post = post;
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
@@ -199,10 +214,19 @@ class _$UserImpl implements _User {
   final int following;
   @override
   final int likes;
+  final List<Post>? _post;
+  @override
+  List<Post>? get post {
+    final value = _post;
+    if (value == null) return null;
+    if (_post is EqualUnmodifiableListView) return _post;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'User(userId: $userId, username: $username, bio: $bio, profileImageUrl: $profileImageUrl, followers: $followers, following: $following, likes: $likes)';
+    return 'User(userId: $userId, username: $username, bio: $bio, profileImageUrl: $profileImageUrl, followers: $followers, following: $following, likes: $likes, post: $post)';
   }
 
   @override
@@ -220,13 +244,22 @@ class _$UserImpl implements _User {
                 other.followers == followers) &&
             (identical(other.following, following) ||
                 other.following == following) &&
-            (identical(other.likes, likes) || other.likes == likes));
+            (identical(other.likes, likes) || other.likes == likes) &&
+            const DeepCollectionEquality().equals(other._post, _post));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, userId, username, bio,
-      profileImageUrl, followers, following, likes);
+  int get hashCode => Object.hash(
+      runtimeType,
+      userId,
+      username,
+      bio,
+      profileImageUrl,
+      followers,
+      following,
+      likes,
+      const DeepCollectionEquality().hash(_post));
 
   @JsonKey(ignore: true)
   @override
@@ -250,7 +283,8 @@ abstract class _User implements User {
       required final String? profileImageUrl,
       required final int followers,
       required final int following,
-      required final int likes}) = _$UserImpl;
+      required final int likes,
+      required final List<Post>? post}) = _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
@@ -268,6 +302,8 @@ abstract class _User implements User {
   int get following;
   @override
   int get likes;
+  @override
+  List<Post>? get post;
   @override
   @JsonKey(ignore: true)
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>

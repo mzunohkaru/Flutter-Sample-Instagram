@@ -2,26 +2,42 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_clone/Core/Profile/Service/profile_service.dart';
+import 'package:instagram_clone/Model/Post/post.dart';
 import 'package:instagram_clone/Model/User/user.dart';
 import 'package:instagram_clone/Repository/UserProvider/current_user_provider.dart';
 import 'package:instagram_clone/Utils/constant.dart';
 
 class ProfileViewModel {
-  Future<User?> fetchCurrentUser({required WidgetRef ref}) async {
-    logger.d("Call: ProfileViewModel fetchCurrentUser");
+  Future<User?> fetchUser({required String userId}) async {
+    logger.d("Call: ProfileViewModel fetchUser");
 
     try {
-      final currentUserUid = ref.watch(currentUserProviderProvider);
-      if (currentUserUid == null) {
-        throw Exception('DEBUG: Not found user ID');
+      // 引数のユーザーの投稿データを取得
+      final postsQuerySnapshot =
+          await PostCollections.where('ownerUid', isEqualTo: userId).get();
+
+      // Post型に変換
+      final posts = postsQuerySnapshot.docs
+          .map((doc) => Post.fromJson(doc.data()))
+          .toList();
+
+      // 引数のユーザーのユーザーデータを取得
+      final userDoc = await UserCollections.doc(userId).get();
+      if (!userDoc.exists) {
+        throw Exception('User not found');
       }
 
-      final docSnapshot = await UserCollections.doc(currentUserUid).get();
-      if (!docSnapshot.exists) {
-        return null;
-      }
-      final data = docSnapshot.data();
-      return User.fromJson(data as Map<String, dynamic>);
+      final userData = userDoc.data()!;
+      return User.fromJson({
+        'userId': userData['userId'],
+        'username': userData['username'],
+        'bio': userData['bio'],
+        'profileImageUrl': userData['profileImageUrl'],
+        'followers': userData['followers'],
+        'following': userData['following'],
+        'likes': userData['likes'],
+        'post': posts.map((post) => post.toJson()).toList(),
+      });
     } catch (e) {
       logger.e("DEBUG: Failed to fetching username", error: e);
       return null;
