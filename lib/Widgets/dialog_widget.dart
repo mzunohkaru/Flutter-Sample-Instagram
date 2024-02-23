@@ -20,3 +20,18 @@ void showAuthErrorDialog(
     },
   );
 }
+
+void showPostDialog(
+    {required BuildContext context, required String postImageUrl}) {
+  showDialog(
+    context: context,
+    builder: (BuildContext dialogContext) {
+      return Dialog(
+        child: Image.network(
+          postImageUrl,
+          fit: BoxFit.cover,
+        ),
+      );
+    },
+  );
+}

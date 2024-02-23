@@ -14,6 +14,9 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       followers: json['followers'] as int,
       following: json['following'] as int,
       likes: json['likes'] as int,
+      post: (json['post'] as List<dynamic>?)
+          ?.map((e) => Post.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
@@ -25,4 +28,5 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'followers': instance.followers,
       'following': instance.following,
       'likes': instance.likes,
+      'post': instance.post,
     };

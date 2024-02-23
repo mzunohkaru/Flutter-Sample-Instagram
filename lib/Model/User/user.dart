@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:instagram_clone/Model/Post/post.dart';
 
 part 'user.freezed.dart';
 part 'user.g.dart';
@@ -13,6 +14,7 @@ class User with _$User {
     required int followers,
     required int following,
     required int likes,
+    required List<Post>? post,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

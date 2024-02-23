@@ -7,7 +7,7 @@ part of 'post_comment_provider.dart';
 // **************************************************************************
 
 String _$postCommentProviderHash() =>
-    r'643661dcea5c2771f44740b14e1c640e3ee9184b';
+    r'74dcb5f4609e52dc41a116de8257eecc6f232dd5';
 
 /// Copied from Dart SDK
 class _SystemHash {
