@@ -7,6 +7,8 @@ class CommentViewModel {
       {required WidgetRef ref,
       required String postId,
       required String commentText}) async {
+    logger.d("Call: CommentViewModel comment");
+
     try {
       final currentUserUid = ref.watch(currentUserProviderProvider);
       if (currentUserUid == null) {
@@ -18,7 +20,7 @@ class CommentViewModel {
           commentText: commentText,
           currentUserUid: currentUserUid);
     } catch (e) {
-      print('コメントの保存中にエラーが発生しました: $e');
+      logger.e("DEBUG: Failed to saving comment", error: e);
       throw Exception('DEBUG: Failed post comment');
     }
   }

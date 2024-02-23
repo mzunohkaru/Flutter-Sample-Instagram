@@ -8,6 +8,8 @@ import 'package:instagram_clone/Utils/constant.dart';
 
 class ProfileViewModel {
   Future<User?> fetchCurrentUser({required WidgetRef ref}) async {
+    logger.d("Call: ProfileViewModel fetchCurrentUser");
+
     try {
       final currentUserUid = ref.watch(currentUserProviderProvider);
       if (currentUserUid == null) {
@@ -21,7 +23,7 @@ class ProfileViewModel {
       final data = docSnapshot.data();
       return User.fromJson(data as Map<String, dynamic>);
     } catch (e) {
-      print("DEBUG: fetching username: $e");
+      logger.e("DEBUG: Failed to fetching username", error: e);
       return null;
     }
   }
@@ -32,6 +34,8 @@ class ProfileViewModel {
     required String bio,
     required File? profileImage,
   }) async {
+    logger.d("Call: ProfileViewModel updateProfile");
+
     try {
       final currentUserUid = ref.watch(currentUserProviderProvider);
       if (currentUserUid == null) {
@@ -45,16 +49,20 @@ class ProfileViewModel {
         profileImage: profileImage,
       );
     } catch (e) {
-      print("プロファイルの更新中にエラーが発生しました: $e");
+      logger.e("DEBUG: Failed to update data with profile", error: e);
     }
   }
 
   Future signOut({required WidgetRef ref}) async {
+    logger.d("Call: ProfileViewModel signOut");
+
     await authService.signOut();
     ref.read(currentUserProviderProvider.notifier).logOutUser();
   }
 
   Future follow({required WidgetRef ref, required String uid}) async {
+    logger.d("Call: ProfileViewModel follow");
+
     final currentUserUid = ref.watch(currentUserProviderProvider);
     if (currentUserUid == null) {
       throw Exception('DEBUG: Not found user ID');
@@ -64,6 +72,8 @@ class ProfileViewModel {
   }
 
   Future unfollow({required WidgetRef ref, required String uid}) async {
+    logger.d("Call: ProfileViewModel unfollow");
+
     final currentUserUid = ref.watch(currentUserProviderProvider);
     if (currentUserUid == null) {
       throw Exception('DEBUG: Not found user ID');
@@ -72,6 +82,8 @@ class ProfileViewModel {
   }
 
   Future<bool> checkIfUserFollowed({required String uid}) async {
+    logger.d("Call: ProfileViewModel checkIfUserFollowed");
+
     final currentUserUid = auth.currentUser!.uid;
 
     return await userService.checkIfUserFollowed(

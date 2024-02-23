@@ -3,6 +3,8 @@ import 'package:instagram_clone/Utils/constant.dart';
 class SplashViewModel {
 
   Future<bool> setupSubscribers() async {
+    logger.d("Call: setupSubscribers");
+
     // widgetがmountするのを待つ
     await Future.delayed(Duration.zero);
 

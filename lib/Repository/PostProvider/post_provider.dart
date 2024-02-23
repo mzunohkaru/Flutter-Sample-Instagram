@@ -15,7 +15,7 @@ class PostProvider extends _$PostProvider {
     try {
       final currentUserUid = auth.currentUser?.uid;
       if (currentUserUid == null) {
-        logger.e("DEBUG: Not found user ID");
+        throw Exception('DEBUG: Not found user ID');
       }
 
       // CloudStoreのコレクションからポストのデータをリアルタイムで取得する

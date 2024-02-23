@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_clone/Repository/UserProvider/current_user_provider.dart';
 import 'package:instagram_clone/Utils/constant.dart';
 
 class ProfileService {
   Future<String> _uploadImage(
       {required File file, required String currentUserUid}) async {
+    logger.d("Call: ProfileService _uploadImage");
+
     // メタデータを設定
     SettableMetadata metadata = SettableMetadata(
       contentType: 'image/jpeg', // ここでファイルのタイプを指定します
@@ -27,6 +27,7 @@ class ProfileService {
     required String bio,
     required File? profileImage,
   }) async {
+    logger.d("Call: ProfileService updateProfileData");
 
     Map<String, dynamic> updateData = {
       'username': username,
@@ -44,7 +45,7 @@ class ProfileService {
           final existingFileRef = storage.refFromURL(existingImageUrl);
           await existingFileRef.delete();
         } catch (e) {
-          print("既存のプロファイル画像の削除に失敗しました: $e");
+          logger.e("DEBUG: Failed to delete profile image", error: e);
         }
       }
       // プロフィール画像をアップデート
@@ -56,7 +57,7 @@ class ProfileService {
     final userDoc = UserCollections.doc(currentUserUid);
 
     await userDoc.update(updateData).catchError((e) {
-      throw Exception("プロファイルデータの更新に失敗しました: $e");
+      throw Exception("DEBUG: Failed to update data with profile $e");
     });
   }
 }

@@ -14,15 +14,17 @@ class ExploreView extends HookConsumerWidget {
     // 全てのユーザーを取得
     final allUsers = ref.watch(userProviderProvider).when(
       data: (data) {
-        print("データ取得成功: ${data.length} 件のユーザー");
+        logger.i("Successful: Fetch user data of ${data.length} cases");
         return data;
       },
       error: (e, stack) {
         print("エラー発生: $e");
+        logger.e("DEBUG: Failed to fetch user data", error: e);
         return [];
       },
       loading: () {
         print("ローディング中...");
+        logger.i("Loading: ExploreView userProviderProvider");
         return [];
       },
     );
@@ -33,17 +35,16 @@ class ExploreView extends HookConsumerWidget {
     useEffect(() {
       void listener() {
         final query = searchController.text;
-        print("検索クエリ: $query");
         if (query.isNotEmpty) {
           searchUsers.value = allUsers
               .where((user) =>
                   user.username.toLowerCase().contains(query.toLowerCase()))
               .toList()
               .cast<User>();
-          print("フィルタリング後のユーザー数: ${searchUsers.value.length}");
+          logger.i("Successful: Number of users after filtering -> ${searchUsers.value.length}");
         } else {
           searchUsers.value = List<User>.from(allUsers);
-          print("全ユーザーを表示");
+          logger.i("Successful: Fetch all user");
         }
       }
 

@@ -4,6 +4,8 @@ import 'package:instagram_clone/Utils/constant.dart';
 
 class PostService {
   Future<Post> fetchPost({required String postId}) async {
+    logger.d("Call: PostService fetchPost");
+
     final postSnapshot = await PostCollections.doc(postId).get();
     return Post.fromJson(postSnapshot.data()!);
   }
@@ -13,6 +15,7 @@ class PostService {
       required String currentUserUid,
       required String caption,
       required String postImageUrl}) async {
+    logger.d("Call: PostService uploadPost");
     // Firestoreに保存
     await PostCollections.doc(postId).set({
       'postId': postId,
@@ -30,6 +33,8 @@ class PostService {
       {required String postId,
       required String commentText,
       required String currentUserUid}) async {
+    logger.d("Call: PostService comment");
+
     final postDoc = PostCollections.doc(postId);
     final postSnapshot = await postDoc.get();
 
@@ -54,6 +59,8 @@ class PostService {
       {required String postId,
       required String currentUserUid,
       required int postLikes}) async {
+    logger.d("Call: PostService like");
+
     await PostCollections.doc(postId).update({
       'likeUsers': FieldValue.arrayUnion([currentUserUid]),
       'likes': postLikes + 1
@@ -64,6 +71,8 @@ class PostService {
       {required String postId,
       required String currentUserUid,
       required int postLikes}) async {
+    logger.d("Call: PostService unlike");
+
     await PostCollections.doc(postId).update({
       'likeUsers': FieldValue.arrayRemove([currentUserUid]),
       'likes': postLikes - 1

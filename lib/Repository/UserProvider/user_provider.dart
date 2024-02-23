@@ -12,7 +12,7 @@ class UserProvider extends _$UserProvider {
     try {
       final currentUserUid = auth.currentUser?.uid;
       if (currentUserUid == null) {
-        logger.e("DEBUG: Not found user ID");
+        throw Exception('DEBUG: Not found user ID');
       }
 
       // usersコレクションの全データを取得

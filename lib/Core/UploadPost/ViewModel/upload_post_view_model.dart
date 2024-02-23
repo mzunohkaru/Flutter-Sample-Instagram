@@ -9,6 +9,8 @@ class UploadPostViewModel {
       {required WidgetRef ref,
       required XFile imageFile,
       required String caption}) async {
+    logger.d("Call: UploadPostViewModel uploadPost");
+
     try {
       final currentUserUid = ref.watch(currentUserProviderProvider);
       if (currentUserUid == null) {
@@ -21,10 +23,13 @@ class UploadPostViewModel {
       final postImageUrl =
           await uploader.uploadStorage(imageFile: imageFile, postId: postId);
 
-      postService.uploadPost(postId: postId, currentUserUid: currentUserUid, caption: caption, postImageUrl: postImageUrl);
-
+      postService.uploadPost(
+          postId: postId,
+          currentUserUid: currentUserUid,
+          caption: caption,
+          postImageUrl: postImageUrl);
     } catch (e) {
-      debugPrint("投稿のアップロードに失敗しました: $e");
+      logger.e("DEBUG: Failed to upload post", error: e);
     }
   }
 }

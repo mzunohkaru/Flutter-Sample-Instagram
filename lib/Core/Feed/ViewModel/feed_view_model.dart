@@ -4,6 +4,8 @@ import 'package:instagram_clone/Utils/constant.dart';
 
 class FeedViewModel {
   Future<void> like({required WidgetRef ref, required String postId}) async {
+    logger.d("Call: FeedViewModel like");
+
     final currentUserUid = ref.watch(currentUserProviderProvider);
     if (currentUserUid == null) {
       throw Exception('DEBUG: Not found user ID');
@@ -18,14 +20,14 @@ class FeedViewModel {
           postLikes: post.likes);
 
       await userService.like(currentUserUid: currentUserUid, postId: postId);
-
-      print("DEBUG: Post like");
     } catch (e) {
-      print("投稿のいいねの保存中にエラーが発生しました: $e");
+      logger.e("DEBUG: Failed to saving liked with post", error: e);
     }
   }
 
   Future<void> unlike({required WidgetRef ref, required String postId}) async {
+    logger.d("Call: FeedViewModel unlike");
+
     final currentUserUid = ref.watch(currentUserProviderProvider);
     if (currentUserUid == null) {
       throw Exception('DEBUG: Not found user ID');
@@ -37,10 +39,8 @@ class FeedViewModel {
       await postService.unlike(postId: postId, currentUserUid: currentUserUid, postLikes: post.likes);
 
       await userService.unlike(currentUserUid: currentUserUid, postId: postId);
-
-      print("DEBUG: Post unlike");
     } catch (e) {
-      print("投稿のいいねを削除にエラーが発生しました: $e");
+      logger.e("DEBUG: Failed to saving unlike with post", error: e);
     }
   }
 }

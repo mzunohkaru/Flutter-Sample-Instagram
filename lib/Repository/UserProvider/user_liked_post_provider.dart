@@ -15,7 +15,7 @@ class UserLikedPostProvider extends _$UserLikedPostProvider {
     try {
       final currentUserUid = auth.currentUser?.uid;
       if (currentUserUid == null) {
-        logger.e("DEBUG: Not found user ID");
+        throw Exception('DEBUG: Not found user ID');
       }
 
       // usersコレクションから現在のユーザーIDに一致するドキュメントのuser-likesサブコレクションを取得
