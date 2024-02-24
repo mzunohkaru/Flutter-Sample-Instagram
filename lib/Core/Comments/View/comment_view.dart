@@ -6,6 +6,8 @@ import 'package:instagram_clone/Core/Components/circular_profile_image_view.dart
 import 'package:instagram_clone/Model/Post/post.dart';
 import 'package:instagram_clone/Repository/PostProvider/post_comment_provider.dart';
 import 'package:instagram_clone/Utils/constant.dart';
+import 'package:instagram_clone/Utils/format_date.dart';
+import 'package:intl/intl.dart';
 
 class CommentView extends HookConsumerWidget {
   final Post post;
@@ -91,7 +93,14 @@ class CommentView extends HookConsumerWidget {
                                 ),
                                 Text(comment.commentText),
                               ],
-                            )
+                            ),
+                            const Spacer(),
+                            Text(
+                              // DateFormat('MM/dd HH:mm')
+                              //     .format(comment.createAt.toDate()),
+                              formatDate(comment.createAt),
+                              style: kSubTextStyle,
+                            ),
                           ],
                         ),
                       );

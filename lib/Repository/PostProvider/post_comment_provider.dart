@@ -13,7 +13,7 @@ class PostCommentProvider extends _$PostCommentProvider {
 
     try {
       final commentsSnapshotStream =
-          PostCollections.doc(postId).collection('post-comments').snapshots();
+          PostCollections.doc(postId).collection('post-comments').orderBy('createAt', descending: true).snapshots();
 
       // ストリームをリッスンし、各スナップショットに対して処理を行う
       await for (final commentsSnapshot in commentsSnapshotStream) {
