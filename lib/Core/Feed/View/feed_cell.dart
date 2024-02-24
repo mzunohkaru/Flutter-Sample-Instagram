@@ -5,8 +5,8 @@ import 'package:instagram_clone/Core/Feed/ViewModel/feed_view_model.dart';
 import 'package:instagram_clone/Core/Profile/View/profile_view.dart';
 import 'package:instagram_clone/Model/Post/post.dart';
 import 'package:instagram_clone/Utils/constant.dart';
+import 'package:instagram_clone/Utils/format_date.dart';
 import 'package:instagram_clone/Widgets/sheet_widget.dart';
-import 'package:intl/intl.dart';
 
 class FeedCell extends HookConsumerWidget {
   final Post post;
@@ -90,8 +90,7 @@ class FeedCell extends HookConsumerWidget {
               ? const SizedBox()
               : Text(
                   "${post.likes} likes",
-                  style: const TextStyle(
-                      color: Colors.grey, fontWeight: FontWeight.w200),
+                  style: kSubTextStyle,
                 ),
           const SizedBox(height: 10),
           Row(
@@ -105,9 +104,9 @@ class FeedCell extends HookConsumerWidget {
             ],
           ),
           Text(
-            DateFormat('yyyy/MM/dd HH:mm').format(post.createAt.toDate()),
-            style: const TextStyle(
-                color: Colors.grey, fontWeight: FontWeight.w200),
+            // DateFormat('yyyy/MM/dd HH:mm').format(post.createAt.toDate()),
+            formatDate(post.createAt),
+            style: kSubTextStyle,
           ),
           const SizedBox(height: 20),
         ],
@@ -115,3 +114,4 @@ class FeedCell extends HookConsumerWidget {
     );
   }
 }
+

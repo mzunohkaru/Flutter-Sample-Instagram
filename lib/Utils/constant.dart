@@ -32,6 +32,13 @@ const TextStyle kUsernameTextStyle = TextStyle(
   fontWeight: FontWeight.w600,
 );
 
+/// user name スタイルテキストの定数
+const TextStyle kSubTextStyle = TextStyle(
+  fontWeight: FontWeight.w200,
+  color: Colors.grey,
+  fontSize: 12,
+);
+
 /// AppBar スタイルテキストの定数
 const TextStyle kAppBarTitleTextStyle = TextStyle(
   fontSize: 20,
