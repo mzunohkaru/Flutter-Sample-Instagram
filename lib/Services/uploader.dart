@@ -38,18 +38,16 @@ class Uploader {
   Future<File> _compressImage({required File imageFile}) async {
     try {
       final filePath = imageFile.absolute.path;
-      logger.t("filePath $filePath");
-      
+
       // 圧縮後の画像ファイルのパスを生成
       final outPath = "${filePath}_compressed.jpg";
-      logger.t("outPath: $outPath");
+
       // filePathの画像を圧縮
       final compressedImage = await FlutterImageCompress.compressAndGetFile(
         filePath,
         outPath,
         quality: 80,
       );
-      logger.t("compressedImage $compressedImage");
       return File(compressedImage!.path);
     } catch (e) {
       logger.e("DEBUG: Failed to compressed image", error: e);
