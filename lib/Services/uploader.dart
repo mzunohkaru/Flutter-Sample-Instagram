@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/Utils/constant.dart';
 
@@ -14,9 +15,15 @@ class Uploader {
       String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
       File file = File(imageFile.path);
 
+      // サムネイルを圧縮
+      final compressedImage = await _compressImage(imageFile: file);
+
       // Firebase Storageにファイルをアップロードします。
-      var uploadTask =
-          storage.ref('posts').child(postId).child(fileName).putFile(file);
+      var uploadTask = storage
+          .ref('posts')
+          .child(postId)
+          .child(fileName)
+          .putFile(compressedImage);
       var snapshot = await uploadTask;
 
       // アップロードしたファイルのダウンロードURLを取得します。
@@ -25,5 +32,28 @@ class Uploader {
     }
 
     return downloadUrls;
+  }
+
+  // 画像を圧縮するメソッドを追加
+  Future<File> _compressImage({required File imageFile}) async {
+    try {
+      final filePath = imageFile.absolute.path;
+      logger.t("filePath $filePath");
+      
+      // 圧縮後の画像ファイルのパスを生成
+      final outPath = "${filePath}_compressed.jpg";
+      logger.t("outPath: $outPath");
+      // filePathの画像を圧縮
+      final compressedImage = await FlutterImageCompress.compressAndGetFile(
+        filePath,
+        outPath,
+        quality: 80,
+      );
+      logger.t("compressedImage $compressedImage");
+      return File(compressedImage!.path);
+    } catch (e) {
+      logger.e("DEBUG: Failed to compressed image", error: e);
+      return imageFile;
+    }
   }
 }
