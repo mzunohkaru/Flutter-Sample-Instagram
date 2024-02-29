@@ -25,9 +25,11 @@ dependencies:
   flutter_hooks: any
   hooks_riverpod: any
 
+  # ファイル
   image_picker: any
   carousel_slider: any
   intl: any
+  flutter_image_compress: any
 
   # UI
   font_awesome_flutter:
