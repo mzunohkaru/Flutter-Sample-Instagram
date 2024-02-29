@@ -23,7 +23,7 @@ mixin _$Post {
   String get postId => throw _privateConstructorUsedError;
   String get ownerUid => throw _privateConstructorUsedError;
   String get caption => throw _privateConstructorUsedError;
-  String get postImageUrl => throw _privateConstructorUsedError;
+  List<String> get postImageUrls => throw _privateConstructorUsedError;
   int get likes => throw _privateConstructorUsedError;
   List<dynamic> get likeUsers => throw _privateConstructorUsedError;
   bool get didLike => throw _privateConstructorUsedError;
@@ -45,7 +45,7 @@ abstract class $PostCopyWith<$Res> {
       {String postId,
       String ownerUid,
       String caption,
-      String postImageUrl,
+      List<String> postImageUrls,
       int likes,
       List<dynamic> likeUsers,
       bool didLike,
@@ -71,7 +71,7 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
     Object? postId = null,
     Object? ownerUid = null,
     Object? caption = null,
-    Object? postImageUrl = null,
+    Object? postImageUrls = null,
     Object? likes = null,
     Object? likeUsers = null,
     Object? didLike = null,
@@ -91,10 +91,10 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.caption
           : caption // ignore: cast_nullable_to_non_nullable
               as String,
-      postImageUrl: null == postImageUrl
-          ? _value.postImageUrl
-          : postImageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+      postImageUrls: null == postImageUrls
+          ? _value.postImageUrls
+          : postImageUrls // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       likes: null == likes
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
@@ -142,7 +142,7 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
       {String postId,
       String ownerUid,
       String caption,
-      String postImageUrl,
+      List<String> postImageUrls,
       int likes,
       List<dynamic> likeUsers,
       bool didLike,
@@ -166,7 +166,7 @@ class __$$PostImplCopyWithImpl<$Res>
     Object? postId = null,
     Object? ownerUid = null,
     Object? caption = null,
-    Object? postImageUrl = null,
+    Object? postImageUrls = null,
     Object? likes = null,
     Object? likeUsers = null,
     Object? didLike = null,
@@ -186,10 +186,10 @@ class __$$PostImplCopyWithImpl<$Res>
           ? _value.caption
           : caption // ignore: cast_nullable_to_non_nullable
               as String,
-      postImageUrl: null == postImageUrl
-          ? _value.postImageUrl
-          : postImageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+      postImageUrls: null == postImageUrls
+          ? _value._postImageUrls
+          : postImageUrls // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       likes: null == likes
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
@@ -221,13 +221,14 @@ class _$PostImpl implements _Post {
       {required this.postId,
       required this.ownerUid,
       required this.caption,
-      required this.postImageUrl,
+      required final List<String> postImageUrls,
       required this.likes,
       required final List<dynamic> likeUsers,
       required this.didLike,
       @TimestampConverter() required this.createAt,
       required this.user})
-      : _likeUsers = likeUsers;
+      : _postImageUrls = postImageUrls,
+        _likeUsers = likeUsers;
 
   factory _$PostImpl.fromJson(Map<String, dynamic> json) =>
       _$$PostImplFromJson(json);
@@ -238,8 +239,14 @@ class _$PostImpl implements _Post {
   final String ownerUid;
   @override
   final String caption;
+  final List<String> _postImageUrls;
   @override
-  final String postImageUrl;
+  List<String> get postImageUrls {
+    if (_postImageUrls is EqualUnmodifiableListView) return _postImageUrls;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_postImageUrls);
+  }
+
   @override
   final int likes;
   final List<dynamic> _likeUsers;
@@ -260,7 +267,7 @@ class _$PostImpl implements _Post {
 
   @override
   String toString() {
-    return 'Post(postId: $postId, ownerUid: $ownerUid, caption: $caption, postImageUrl: $postImageUrl, likes: $likes, likeUsers: $likeUsers, didLike: $didLike, createAt: $createAt, user: $user)';
+    return 'Post(postId: $postId, ownerUid: $ownerUid, caption: $caption, postImageUrls: $postImageUrls, likes: $likes, likeUsers: $likeUsers, didLike: $didLike, createAt: $createAt, user: $user)';
   }
 
   @override
@@ -272,8 +279,8 @@ class _$PostImpl implements _Post {
             (identical(other.ownerUid, ownerUid) ||
                 other.ownerUid == ownerUid) &&
             (identical(other.caption, caption) || other.caption == caption) &&
-            (identical(other.postImageUrl, postImageUrl) ||
-                other.postImageUrl == postImageUrl) &&
+            const DeepCollectionEquality()
+                .equals(other._postImageUrls, _postImageUrls) &&
             (identical(other.likes, likes) || other.likes == likes) &&
             const DeepCollectionEquality()
                 .equals(other._likeUsers, _likeUsers) &&
@@ -290,7 +297,7 @@ class _$PostImpl implements _Post {
       postId,
       ownerUid,
       caption,
-      postImageUrl,
+      const DeepCollectionEquality().hash(_postImageUrls),
       likes,
       const DeepCollectionEquality().hash(_likeUsers),
       didLike,
@@ -316,7 +323,7 @@ abstract class _Post implements Post {
       {required final String postId,
       required final String ownerUid,
       required final String caption,
-      required final String postImageUrl,
+      required final List<String> postImageUrls,
       required final int likes,
       required final List<dynamic> likeUsers,
       required final bool didLike,
@@ -332,7 +339,7 @@ abstract class _Post implements Post {
   @override
   String get caption;
   @override
-  String get postImageUrl;
+  List<String> get postImageUrls;
   @override
   int get likes;
   @override

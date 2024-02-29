@@ -6,7 +6,7 @@ import 'package:instagram_clone/Utils/constant.dart';
 class UploadPostViewModel {
   Future<void> uploadPost(
       {required WidgetRef ref,
-      required XFile imageFile,
+      required List<XFile> imageFiles,
       required String caption}) async {
     logger.d("Call: UploadPostViewModel uploadPost");
 
@@ -16,17 +16,17 @@ class UploadPostViewModel {
         throw Exception('DEBUG: Not found user ID');
       }
 
-      // 画像をFirestorageにアップロード
+      // 画像をFirebase Storageにアップロード
       final postId = PostCollections.doc().id;
 
-      final postImageUrl =
-          await uploader.uploadStorage(imageFile: imageFile, postId: postId);
+      final postImageUrls =
+          await uploader.uploadStorage(imageFiles: imageFiles, postId: postId);
 
       postService.uploadPost(
           postId: postId,
           currentUserUid: currentUserUid,
           caption: caption,
-          postImageUrl: postImageUrl);
+          postImageUrls: postImageUrls);
     } catch (e) {
       logger.e("DEBUG: Failed to upload post", error: e);
     }

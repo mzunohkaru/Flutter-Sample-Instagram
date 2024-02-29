@@ -1,4 +1,6 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_clone/Core/Components/circular_profile_image_view.dart';
 import 'package:instagram_clone/Core/Feed/ViewModel/feed_view_model.dart';
@@ -12,10 +14,14 @@ class FeedCell extends HookConsumerWidget {
   final Post post;
   final FeedViewModel viewModel;
 
-  const FeedCell({super.key, required this.post, required this.viewModel});
+  FeedCell({super.key, required this.post, required this.viewModel});
+
+  final CarouselController controller = CarouselController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final currentCarouselPosition = useState(0);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: Column(
@@ -40,18 +46,72 @@ class FeedCell extends HookConsumerWidget {
             ],
           ),
           const SizedBox(height: 10),
-          AspectRatio(
-            aspectRatio: 360 / 320,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey,
-                image: DecorationImage(
-                  image: NetworkImage(post.postImageUrl),
-                  fit: BoxFit.cover,
+          post.postImageUrls.length == 1
+              ? AspectRatio(
+                  aspectRatio: 360 / 320,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      image: DecorationImage(
+                        image: NetworkImage(post.postImageUrls[0]),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                )
+              : Column(
+                  children: [
+                    CarouselSlider(
+                      carouselController: controller,
+                      options: CarouselOptions(
+                        aspectRatio: 360 / 320,
+                        viewportFraction: 1.0,
+                        enableInfiniteScroll: false,
+                        onPageChanged: (index, reason) {
+                          currentCarouselPosition.value = index;
+                        },
+                      ),
+                      items: post.postImageUrls.map((i) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 3.0),
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                                image: DecorationImage(
+                                  image: NetworkImage(i),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      }).toList(),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: post.postImageUrls.asMap().entries.map((entry) {
+                        return GestureDetector(
+                          onTap: () => controller.animateToPage(entry.key),
+                          child: Container(
+                            width: 12.0,
+                            height: 12.0,
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 4.0),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: currentCarouselPosition.value == entry.key
+                                  ? Colors.blueAccent
+                                  : Colors.grey,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
                 ),
-              ),
-            ),
-          ),
           const SizedBox(height: 10),
           Row(
             children: [
@@ -114,4 +174,3 @@ class FeedCell extends HookConsumerWidget {
     );
   }
 }
-
