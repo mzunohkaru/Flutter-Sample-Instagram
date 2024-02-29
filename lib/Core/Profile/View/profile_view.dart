@@ -1,8 +1,10 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_clone/Core/Components/circular_profile_image_view.dart';
+import 'package:instagram_clone/Core/Components/no_posts_view.dart';
 import 'package:instagram_clone/Core/Profile/View/edit_profile_view.dart';
 import 'package:instagram_clone/Core/Profile/ViewModel/profile_view_model.dart';
 import 'package:instagram_clone/Model/User/user.dart';
@@ -15,6 +17,8 @@ class ProfileView extends HookConsumerWidget {
   final viewModel = ProfileViewModel();
 
   ProfileView({super.key, required this.user});
+
+  final CarouselController controller = CarouselController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -176,40 +180,42 @@ class ProfileView extends HookConsumerWidget {
                                   onTap: () {
                                     showPostDialog(
                                         context: context,
-                                        postImageUrl: userPost.postImageUrl);
+                                        postImageUrl:
+                                            userPost.postImageUrls[0]); // 改
                                   },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: NetworkImage(
-                                            userPost.postImageUrl,
-                                          ),
-                                          fit: BoxFit.cover),
+                                  child: CarouselSlider(
+                                    carouselController: controller,
+                                    options: CarouselOptions(
+                                      aspectRatio: 360 / 320,
+                                      viewportFraction: 1.0,
+                                      enableInfiniteScroll: false,
                                     ),
+                                    items: userPost.postImageUrls.map((i) {
+                                      return Builder(
+                                        builder: (BuildContext context) {
+                                          return Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            margin: const EdgeInsets.symmetric(
+                                                horizontal: 3.0),
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              image: DecorationImage(
+                                                image: NetworkImage(i),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    }).toList(),
                                   ),
                                 );
                               },
                             ),
                           )
-                        : const Column(
-                            children: [
-                              Icon(
-                                Icons.post_add,
-                                size: 80,
-                              ),
-                              Text(
-                                "No Posts",
-                                style: TextStyle(
-                                    fontSize: 40, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                "New posts you receive will appear here.",
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w200),
-                              ),
-                            ],
-                          ),
+                        : const NoPostsView()
                   ],
                 );
               } else if (snapshot.hasError) {

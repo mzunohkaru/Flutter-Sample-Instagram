@@ -48,23 +48,26 @@ class CommentView extends HookConsumerWidget {
               error: (error, stack) => Center(child: Text('エラー: $error')),
               data: (comments) {
                 if (comments.isEmpty) {
-                  return const Column(
-                    children: [
-                      Icon(
-                        Icons.post_add,
-                        size: 80,
-                      ),
-                      Text(
-                        "No Comments",
-                        style: TextStyle(
-                            fontSize: 40, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "Let me make my first comment.",
-                        style: TextStyle(
-                            color: Colors.grey, fontWeight: FontWeight.w200),
-                      ),
-                    ],
+                  return const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.post_add,
+                          size: 80,
+                        ),
+                        Text(
+                          "No Comments",
+                          style: TextStyle(
+                              fontSize: 40, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Let me make my first comment.",
+                          style: TextStyle(
+                              color: Colors.grey, fontWeight: FontWeight.w200),
+                        ),
+                      ],
+                    ),
                   );
                 } else {
                   return ListView.builder(

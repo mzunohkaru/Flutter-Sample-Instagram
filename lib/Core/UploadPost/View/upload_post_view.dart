@@ -15,15 +15,16 @@ class UploadPostView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _image = useState<XFile?>(null);
+    final xFiles = useState<List<XFile>>([]); // 画像を複数管理する
     final isLoading = useState(false);
 
-    // ギャラリーにアクセス
-    Future<void> _pickImage() async {
-      final ImagePicker _picker = ImagePicker();
-      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        _image.value = image;
+    // ギャラリーから複数の画像を選択
+    Future<void> pickImage() async {
+      final ImagePicker picker = ImagePicker();
+      final List<XFile>? images = await picker.pickMultiImage(); // 複数画像選択
+      if (images != null && images.length <= 3) {
+        // 選択された画像が3枚以下であることを確認
+        xFiles.value = images;
       }
     }
 
@@ -32,19 +33,19 @@ class UploadPostView extends HookConsumerWidget {
     useEffect(() {
       void listener() {
         isValidation.value =
-            captionController.text.isNotEmpty && _image.value != null;
+            captionController.text.isNotEmpty && xFiles.value != [];
       }
 
       captionController.addListener(listener);
-      _image.addListener(listener);
+      xFiles.addListener(listener);
       return () {
         captionController.removeListener(listener);
-        _image.removeListener(listener);
+        xFiles.removeListener(listener);
       };
-    }, [captionController, _image]);
+    }, [captionController, xFiles]);
 
     void reset() {
-      _image.value = null;
+      xFiles.value = [];
       captionController.clear();
       isLoading.value = false;
       resetAndNavigateToFeed();
@@ -71,28 +72,33 @@ class UploadPostView extends HookConsumerWidget {
               ],
             ),
           ),
+          // 画像選択部分のUIを調整
           InkWell(
-            onTap: _pickImage,
+            onTap: pickImage,
             child: AspectRatio(
               aspectRatio: 360 / 320,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  image: _image.value != null
-                      ? DecorationImage(
-                          image: FileImage(File(_image.value!.path)),
-                          fit: BoxFit.cover,
-                        )
-                      : null,
-                ),
-                child: _image.value == null
-                    ? const Icon(
+              child: xFiles.value.isEmpty
+                  ? Container(
+                      color: Colors.grey,
+                      child: const Icon(
                         Icons.image,
                         color: Colors.white,
                         size: 80,
-                      )
-                    : null,
-              ),
+                      ),
+                    )
+                  : GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        mainAxisSpacing: 1,
+                        crossAxisSpacing: 1,
+                        crossAxisCount: xFiles.value.length,
+                        childAspectRatio: 1.0
+                      ),
+                      itemCount: xFiles.value.length,
+                      itemBuilder: (context, index) {
+                        return Image.file(File(xFiles.value[index].path),
+                            fit: BoxFit.cover);
+                      },
+                    ),
             ),
           ),
           const SizedBox(
@@ -124,7 +130,7 @@ class UploadPostView extends HookConsumerWidget {
                       isLoading.value = true;
                       await viewModel.uploadPost(
                           ref: ref,
-                          imageFile: _image.value!,
+                          imageFiles: xFiles.value,
                           caption: captionController.text);
 
                       reset();

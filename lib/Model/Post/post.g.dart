@@ -10,7 +10,9 @@ _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
       postId: json['postId'] as String,
       ownerUid: json['ownerUid'] as String,
       caption: json['caption'] as String,
-      postImageUrl: json['postImageUrl'] as String,
+      postImageUrls: (json['postImageUrls'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       likes: json['likes'] as int,
       likeUsers: json['likeUsers'] as List<dynamic>,
       didLike: json['didLike'] as bool,
@@ -25,7 +27,7 @@ Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
       'postId': instance.postId,
       'ownerUid': instance.ownerUid,
       'caption': instance.caption,
-      'postImageUrl': instance.postImageUrl,
+      'postImageUrls': instance.postImageUrls,
       'likes': instance.likes,
       'likeUsers': instance.likeUsers,
       'didLike': instance.didLike,

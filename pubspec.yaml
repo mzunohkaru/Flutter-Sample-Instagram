@@ -26,6 +26,7 @@ dependencies:
   hooks_riverpod: any
 
   image_picker: any
+  carousel_slider: any
   intl: any
 
   # UI

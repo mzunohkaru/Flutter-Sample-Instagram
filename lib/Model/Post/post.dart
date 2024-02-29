@@ -12,7 +12,7 @@ class Post with _$Post {
     required String postId,
     required String ownerUid,
     required String caption,
-    required String postImageUrl,
+    required List<String> postImageUrls,
     required int likes,
     required List likeUsers,
     required bool didLike,

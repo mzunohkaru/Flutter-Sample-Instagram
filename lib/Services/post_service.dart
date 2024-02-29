@@ -14,14 +14,14 @@ class PostService {
       {required String postId,
       required String currentUserUid,
       required String caption,
-      required String postImageUrl}) async {
+      required List<String> postImageUrls}) async {
     logger.d("Call: PostService uploadPost");
-    // Firestoreに保存
+    // FirebaseStoreに保存
     await PostCollections.doc(postId).set({
       'postId': postId,
       'ownerUid': currentUserUid,
       'caption': caption,
-      'postImageUrl': postImageUrl,
+      'postImageUrls': postImageUrls,
       'createAt': Timestamp.now(),
       'likes': 0,
       'likeUsers': [],

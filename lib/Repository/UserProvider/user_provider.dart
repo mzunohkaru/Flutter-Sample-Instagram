@@ -8,7 +8,7 @@ class UserProvider extends _$UserProvider {
   @override
   Future<List<User>> build() async {
     logger.d("Call: UserProvider");
-    
+
     try {
       final currentUserUid = auth.currentUser?.uid;
       if (currentUserUid == null) {
