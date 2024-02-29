@@ -11,7 +11,7 @@ $ flutterfire configure
 
 # Youtube
 
-https://youtu.be/Mp2MTy_AkKk
+https://www.youtube.com/watch?v=FPwIqQolRTM
 
 
 # Database
