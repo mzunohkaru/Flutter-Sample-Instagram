@@ -29,6 +29,7 @@ dependencies:
   image_picker: any
   carousel_slider: any
   intl: any
+  timeago: any
   flutter_image_compress: any
 
   # UI
