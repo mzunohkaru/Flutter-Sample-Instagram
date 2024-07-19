@@ -8,7 +8,6 @@ part 'post_provider.g.dart';
 class PostProvider extends _$PostProvider {
   // 投稿データを取得・監視
   @override
-  // async* : 非同期ストリームを生成
   Stream<List<Post>> build() async* {
     logger.d("Call: PostProvider");
 
@@ -18,10 +17,8 @@ class PostProvider extends _$PostProvider {
         throw Exception('DEBUG: Not found user ID');
       }
 
-      // CloudStoreのコレクションからポストのデータをリアルタイムで取得する
       final postSnapshotStream = PostCollections.snapshots();
 
-      // ストリームをリッスンし、各スナップショットに対して処理を行う
       await for (final postSnapshot in postSnapshotStream) {
         final posts = await Future.wait(postSnapshot.docs.map((doc) async {
           try {
@@ -55,7 +52,6 @@ class PostProvider extends _$PostProvider {
 
 /*
 // StreamProvider
-
 final postStreamProvider = StreamProvider<List<Post>>((ref) async* {
   try {
     final currentUserUid = ref.watch(currentUserUidProvider);
@@ -88,5 +84,4 @@ final postStreamProvider = StreamProvider<List<Post>>((ref) async* {
     rethrow;
   }
 });
-
 */
