@@ -22,4 +22,13 @@ class UserRepositoryImpl implements UserRepository {
       return User.fromJson(value.data()!);
     });
   }
+
+  @override
+  Future<List<User>> getAllUsers() {
+    return _firestore.collection('users').get().then((snapshot) async {
+      final users =
+          snapshot.docs.map((doc) => User.fromJson(doc.data())).toList();
+      return users;
+    });
+  }
 }
