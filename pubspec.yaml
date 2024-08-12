@@ -12,48 +12,48 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
-
-
   # Firebase
-  firebase_core: any
-  firebase_auth: any
-  cloud_firestore: any
-  firebase_storage: any
+  firebase_core:
+  firebase_auth:
+  cloud_firestore:
+  firebase_storage:
+
+  # Local DB
+  shared_preferences:
 
   # 状態管理
-  flutter_riverpod: any
-  flutter_hooks: any
-  hooks_riverpod: any
+  flutter_riverpod:
+  flutter_hooks:
+  hooks_riverpod:
 
   # ファイル
-  image_picker: any
-  carousel_slider: any
-  intl: any
-  timeago: any
-  flutter_image_compress: any
+  image_picker:
+  flutter_image_compress:
 
   # UI
+  intl:
+  timeago:
   font_awesome_flutter:
-  flex_color_scheme: any
+  flex_color_scheme:
+  carousel_slider:
 
-  freezed_annotation: any
-  json_annotation: any
+  # Generator
+  freezed_annotation:
+  json_annotation:
 
   # ログ
-  logger: any
+  logger:
 
-
-  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   build_runner: any
-  riverpod_annotation: any
-  riverpod_generator: any
-  freezed: any
-  json_serializable: any
+  riverpod_annotation:
+  riverpod_generator:
+  freezed:
+  json_serializable:
 
 
   flutter_lints: ^2.0.0

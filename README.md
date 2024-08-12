@@ -1,8 +1,5 @@
 # Generator Commands
 
-# TEST
-https://flutter-blog-d0192.web.app/
-
 $ flutter pub run build_runner build
 
 # Firebase Commands
