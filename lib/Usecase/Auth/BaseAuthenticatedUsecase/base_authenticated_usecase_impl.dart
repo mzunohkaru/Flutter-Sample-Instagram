@@ -30,4 +30,9 @@ class BaseAuthenticatedUsecaseImpl implements BaseAuthenticatedUsecase {
     }
     return user.uid;
   }
+
+  @override
+  Future<void> signOut() async {
+    await _authRepository.signOut();
+  }
 }

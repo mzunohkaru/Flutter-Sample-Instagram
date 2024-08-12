@@ -71,7 +71,8 @@ class ProfileViewModel {
   Future signOut({required WidgetRef ref}) async {
     logger.d("Call: ProfileViewModel signOut");
 
-    await authService.signOut();
+    final baseAuthenticatedUsecase = ref.read(baseAuthenticatedUsecaseProvider);
+    await baseAuthenticatedUsecase.signOut();
   }
 
   Future follow({required WidgetRef ref, required String uid}) async {
