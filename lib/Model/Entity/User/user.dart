@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:instagram_clone/Model/Post/post.dart';
+import 'package:instagram_clone/Model/Entity/Post/post.dart';
 
 part 'user.freezed.dart';
 part 'user.g.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_clone/Core/Profile/View/profile_view.dart';
-import 'package:instagram_clone/Model/User/user.dart';
+import 'package:instagram_clone/Model/Entity/User/user.dart';
 import 'package:instagram_clone/Provider/UserProvider/user_provider.dart';
 import 'package:instagram_clone/Utils/constant.dart';
 

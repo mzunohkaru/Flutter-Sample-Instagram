@@ -1,4 +1,4 @@
-import 'package:instagram_clone/Model/User/user.dart';
+import 'package:instagram_clone/Model/Entity/User/user.dart';
 import 'package:instagram_clone/Utils/constant.dart';
 
 class UserService {

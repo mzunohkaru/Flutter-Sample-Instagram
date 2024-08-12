@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../Model/User/user.dart';
+import '../../../Model/Entity/User/user.dart';
 import '../../../Usecase/Auth/BaseAuthenticatedUsecase/base_authenticated_usecase_impl.dart';
 import '../../../Utils/constant.dart';
 import '../../../Widgets/dialog_widget.dart';

@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'; // hooks_riverpodをインポート
 import 'package:instagram_clone/Core/Comments/ViewModel/comment_view_model.dart';
 import 'package:instagram_clone/Core/Components/circular_profile_image_view.dart';
-import 'package:instagram_clone/Model/Post/post.dart';
+import 'package:instagram_clone/Model/Entity/Post/post.dart';
 import 'package:instagram_clone/Provider/PostProvider/post_comment_provider.dart';
 import 'package:instagram_clone/Utils/constant.dart';
 import 'package:instagram_clone/Utils/format_date.dart';

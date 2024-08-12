@@ -1,4 +1,4 @@
-import 'package:instagram_clone/Model/User/user.dart';
+import 'package:instagram_clone/Model/Entity/User/user.dart';
 import 'package:instagram_clone/Utils/constant.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'user_provider.g.dart';

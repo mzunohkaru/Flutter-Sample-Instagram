@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/Core/Comments/View/comment_view.dart';
-import 'package:instagram_clone/Model/Post/post.dart';
+import 'package:instagram_clone/Model/Entity/Post/post.dart';
 
 void showChatSheet({
   required BuildContext context,

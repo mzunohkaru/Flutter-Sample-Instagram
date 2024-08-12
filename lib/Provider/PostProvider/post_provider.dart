@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:instagram_clone/Model/Post/post.dart';
+import 'package:instagram_clone/Model/Entity/Post/post.dart';
 import 'package:instagram_clone/Utils/constant.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'post_provider.g.dart';

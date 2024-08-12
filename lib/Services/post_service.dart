@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:instagram_clone/Model/Post/post.dart';
+import 'package:instagram_clone/Model/Entity/Post/post.dart';
 import 'package:instagram_clone/Utils/constant.dart';
 
 class PostService {

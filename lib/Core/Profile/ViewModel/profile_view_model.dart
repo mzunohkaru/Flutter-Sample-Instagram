@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_clone/Core/Profile/Service/profile_service.dart';
-import 'package:instagram_clone/Model/Post/post.dart';
-import 'package:instagram_clone/Model/User/user.dart';
+import 'package:instagram_clone/Model/Entity/Post/post.dart';
+import 'package:instagram_clone/Model/Entity/User/user.dart';
 import 'package:instagram_clone/Utils/constant.dart';
 
 import '../../../Usecase/Auth/BaseAuthenticatedUsecase/base_authenticated_usecase_impl.dart';

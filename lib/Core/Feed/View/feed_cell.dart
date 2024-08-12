@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_clone/Core/Components/circular_profile_image_view.dart';
 import 'package:instagram_clone/Core/Feed/ViewModel/feed_view_model.dart';
 import 'package:instagram_clone/Core/Profile/View/profile_view.dart';
-import 'package:instagram_clone/Model/Post/post.dart';
+import 'package:instagram_clone/Model/Entity/Post/post.dart';
 import 'package:instagram_clone/Utils/constant.dart';
 import 'package:instagram_clone/Utils/format_date.dart';
 import 'package:instagram_clone/Widgets/sheet_widget.dart';

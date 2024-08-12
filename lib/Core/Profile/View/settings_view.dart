@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_clone/Core/Components/circular_profile_image_view.dart';
 import 'package:instagram_clone/Core/Profile/ViewModel/profile_view_model.dart';
 import 'package:instagram_clone/Core/Root/View/splash_view.dart';
-import 'package:instagram_clone/Model/User/user.dart';
+import 'package:instagram_clone/Model/Entity/User/user.dart';
 import 'package:instagram_clone/Provider/theme_provider.dart';
 import 'package:instagram_clone/Utils/constant.dart';
 

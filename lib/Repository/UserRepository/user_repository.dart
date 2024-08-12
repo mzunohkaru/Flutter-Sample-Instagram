@@ -1,4 +1,4 @@
-import 'package:instagram_clone/Model/User/user.dart';
+import 'package:instagram_clone/Model/Entity/User/user.dart';
 
 abstract class UserRepository {
   Future<User> fetchUser({required String uid});

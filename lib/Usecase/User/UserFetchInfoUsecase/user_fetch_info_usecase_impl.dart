@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../Model/User/user.dart';
+import '../../../Model/Entity/User/user.dart';
 import '../../../Repository/UserRepository/user_repository.dart';
 import '../../../Repository/UserRepository/user_repository_impl.dart';
 import 'user_fetch_info_usecase.dart';
