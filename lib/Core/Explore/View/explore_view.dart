@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:instagram_clone/Core/Profile/View/profile_view.dart';
-import 'package:instagram_clone/Model/Entity/User/user.dart';
-import 'package:instagram_clone/Provider/UserProvider/user_provider.dart';
-import 'package:instagram_clone/Utils/constant.dart';
+
+import '../../../Model/Entity/User/user.dart';
+import '../../../State/User/UserState/user_controller.dart';
+import '../../../Utils/constant.dart';
+import '../../Profile/View/profile_view.dart';
 
 class ExploreView extends HookConsumerWidget {
   const ExploreView({super.key});
@@ -12,7 +13,7 @@ class ExploreView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // 全てのユーザーを取得
-    final allUsers = ref.watch(userProviderProvider).when(
+    final allUsers = ref.watch(userControllerProvider).when(
       data: (data) {
         logger.i("Successful: Fetch user data of ${data.length} cases");
         return data;
@@ -41,7 +42,8 @@ class ExploreView extends HookConsumerWidget {
                   user.username.toLowerCase().contains(query.toLowerCase()))
               .toList()
               .cast<User>();
-          logger.i("Successful: Number of users after filtering -> ${searchUsers.value.length}");
+          logger.i(
+              "Successful: Number of users after filtering -> ${searchUsers.value.length}");
         } else {
           searchUsers.value = List<User>.from(allUsers);
           logger.i("Successful: Fetch all user");
