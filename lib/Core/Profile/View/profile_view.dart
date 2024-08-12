@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:instagram_clone/Core/Components/circular_profile_image_view.dart';
-import 'package:instagram_clone/Core/Components/no_posts_view.dart';
-import 'package:instagram_clone/Core/Profile/View/edit_profile_view.dart';
-import 'package:instagram_clone/Core/Profile/ViewModel/profile_view_model.dart';
-import 'package:instagram_clone/Model/User/user.dart';
-import 'package:instagram_clone/Repository/UserProvider/current_user_provider.dart';
-import 'package:instagram_clone/Utils/constant.dart';
-import 'package:instagram_clone/Widgets/dialog_widget.dart';
+
+import '../../../Model/User/user.dart';
+import '../../../Usecase/Auth/BaseAuthenticatedUsecase/base_authenticated_usecase_impl.dart';
+import '../../../Utils/constant.dart';
+import '../../../Widgets/dialog_widget.dart';
+import '../../Components/circular_profile_image_view.dart';
+import '../../Components/no_posts_view.dart';
+import '../ViewModel/profile_view_model.dart';
+import 'edit_profile_view.dart';
 
 class ProfileView extends HookConsumerWidget {
   final User user;
@@ -22,7 +23,9 @@ class ProfileView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentUserUid = ref.watch(currentUserProviderProvider);
+    final currentUserUid =
+        ref.read(baseAuthenticatedUsecaseProvider).getCurrentUserId();
+
     final follow = useState<bool?>(null);
 
     useEffect(() {

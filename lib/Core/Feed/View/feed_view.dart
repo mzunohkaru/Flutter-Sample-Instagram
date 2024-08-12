@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_clone/Core/Feed/View/feed_cell.dart';
 import 'package:instagram_clone/Core/Feed/ViewModel/feed_view_model.dart';
-import 'package:instagram_clone/Repository/PostProvider/post_provider.dart';
+import 'package:instagram_clone/Provider/PostProvider/post_provider.dart';
 
 class FeedView extends ConsumerWidget {
   final viewModel = FeedViewModel();

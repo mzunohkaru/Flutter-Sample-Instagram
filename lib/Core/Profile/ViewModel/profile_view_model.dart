@@ -4,8 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_clone/Core/Profile/Service/profile_service.dart';
 import 'package:instagram_clone/Model/Post/post.dart';
 import 'package:instagram_clone/Model/User/user.dart';
-import 'package:instagram_clone/Repository/UserProvider/current_user_provider.dart';
 import 'package:instagram_clone/Utils/constant.dart';
+
+import '../../../Usecase/Auth/BaseAuthenticatedUsecase/base_authenticated_usecase_impl.dart';
 
 class ProfileViewModel {
   Future<User?> fetchUser({required String userId}) async {
@@ -53,10 +54,8 @@ class ProfileViewModel {
     logger.d("Call: ProfileViewModel updateProfile");
 
     try {
-      final currentUserUid = ref.watch(currentUserProviderProvider);
-      if (currentUserUid == null) {
-        throw Exception('DEBUG: Not found user ID');
-      }
+      final currentUserUid =
+          ref.read(baseAuthenticatedUsecaseProvider).getCurrentUserId();
 
       await ProfileService().updateProfileData(
         currentUserUid: currentUserUid,
@@ -73,16 +72,13 @@ class ProfileViewModel {
     logger.d("Call: ProfileViewModel signOut");
 
     await authService.signOut();
-    ref.read(currentUserProviderProvider.notifier).logOutUser();
   }
 
   Future follow({required WidgetRef ref, required String uid}) async {
     logger.d("Call: ProfileViewModel follow");
 
-    final currentUserUid = ref.watch(currentUserProviderProvider);
-    if (currentUserUid == null) {
-      throw Exception('DEBUG: Not found user ID');
-    }
+    final currentUserUid =
+        ref.read(baseAuthenticatedUsecaseProvider).getCurrentUserId();
 
     await userService.follow(currentUserUid: currentUserUid, uid: uid);
   }
@@ -90,10 +86,9 @@ class ProfileViewModel {
   Future unfollow({required WidgetRef ref, required String uid}) async {
     logger.d("Call: ProfileViewModel unfollow");
 
-    final currentUserUid = ref.watch(currentUserProviderProvider);
-    if (currentUserUid == null) {
-      throw Exception('DEBUG: Not found user ID');
-    }
+    final currentUserUid =
+        ref.read(baseAuthenticatedUsecaseProvider).getCurrentUserId();
+
     await userService.unfollow(currentUserUid: currentUserUid, uid: uid);
   }
 

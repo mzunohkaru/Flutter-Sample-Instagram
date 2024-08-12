@@ -25,10 +25,9 @@ class BaseAuthenticatedUsecaseImpl implements BaseAuthenticatedUsecase {
   @override
   UserId getCurrentUserId() {
     final user = _authRepository.getCurrentUser();
-    if (user != null) {
-      return user.uid;
-    } else {
+    if (user == null) {
       throw const AppException.auth(AuthErrorType.userNotFound);
     }
+    return user.uid;
   }
 }

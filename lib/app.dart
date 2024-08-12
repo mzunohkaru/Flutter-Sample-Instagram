@@ -4,7 +4,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'Core/Root/View/splash_view.dart';
-import 'Repository/theme_provider.dart';
+import 'Provider/theme_provider.dart';
 
 class App extends ConsumerWidget {
   FlexScheme usedScheme = FlexScheme.blueWhale;

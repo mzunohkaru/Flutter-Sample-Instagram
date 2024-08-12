@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_clone/Core/Components/no_posts_view.dart';
 import 'package:instagram_clone/Core/Feed/View/feed_cell.dart';
 import 'package:instagram_clone/Core/Feed/ViewModel/feed_view_model.dart';
-import 'package:instagram_clone/Repository/UserProvider/user_liked_post_provider.dart';
+import 'package:instagram_clone/Provider/UserProvider/user_liked_post_provider.dart';
 
 class FavoriteFeedView extends ConsumerWidget {
   final viewModel = FeedViewModel();

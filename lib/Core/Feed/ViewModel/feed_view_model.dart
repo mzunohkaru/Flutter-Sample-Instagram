@@ -1,15 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_clone/Repository/UserProvider/current_user_provider.dart';
 import 'package:instagram_clone/Utils/constant.dart';
+
+import '../../../Usecase/Auth/BaseAuthenticatedUsecase/base_authenticated_usecase_impl.dart';
 
 class FeedViewModel {
   Future<void> like({required WidgetRef ref, required String postId}) async {
     logger.d("Call: FeedViewModel like");
 
-    final currentUserUid = ref.watch(currentUserProviderProvider);
-    if (currentUserUid == null) {
-      throw Exception('DEBUG: Not found user ID');
-    }
+    final currentUserUid = ref.read(baseAuthenticatedUsecaseProvider).getCurrentUserId();
 
     try {
       final post = await postService.fetchPost(postId: postId);
@@ -28,10 +26,7 @@ class FeedViewModel {
   Future<void> unlike({required WidgetRef ref, required String postId}) async {
     logger.d("Call: FeedViewModel unlike");
 
-    final currentUserUid = ref.watch(currentUserProviderProvider);
-    if (currentUserUid == null) {
-      throw Exception('DEBUG: Not found user ID');
-    }
+    final currentUserUid = ref.read(baseAuthenticatedUsecaseProvider).getCurrentUserId();
 
     try {
       final post = await postService.fetchPost(postId: postId);

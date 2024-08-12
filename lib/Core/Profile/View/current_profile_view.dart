@@ -1,14 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_clone/Core/Components/circular_profile_image_view.dart';
-import 'package:instagram_clone/Core/Components/no_posts_view.dart';
-import 'package:instagram_clone/Core/Profile/View/edit_profile_view.dart';
-import 'package:instagram_clone/Core/Profile/View/settings_view.dart';
-import 'package:instagram_clone/Core/Profile/ViewModel/profile_view_model.dart';
-import 'package:instagram_clone/Repository/UserProvider/current_user_provider.dart';
-import 'package:instagram_clone/Utils/constant.dart';
-import 'package:instagram_clone/Widgets/dialog_widget.dart';
+
+import '../../../Usecase/Auth/BaseAuthenticatedUsecase/base_authenticated_usecase_impl.dart';
+import '../../../Utils/constant.dart';
+import '../../../Widgets/dialog_widget.dart';
+import '../../Components/circular_profile_image_view.dart';
+import '../../Components/no_posts_view.dart';
+import '../ViewModel/profile_view_model.dart';
+import 'edit_profile_view.dart';
+import 'settings_view.dart';
 
 class CurrentProfileView extends ConsumerWidget {
   final viewModel = ProfileViewModel();
@@ -18,13 +19,14 @@ class CurrentProfileView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentUserUid = ref.watch(currentUserProviderProvider);
+    final currentUserUid =
+        ref.watch(baseAuthenticatedUsecaseProvider).getCurrentUserId();
 
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: FutureBuilder(
-          future: viewModel.fetchUser(userId: currentUserUid!),
+          future: viewModel.fetchUser(userId: currentUserUid),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {

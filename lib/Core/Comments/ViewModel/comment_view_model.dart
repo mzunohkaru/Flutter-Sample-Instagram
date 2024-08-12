@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_clone/Repository/UserProvider/current_user_provider.dart';
 import 'package:instagram_clone/Utils/constant.dart';
+
+import '../../../Usecase/Auth/BaseAuthenticatedUsecase/base_authenticated_usecase_impl.dart';
 
 class CommentViewModel {
   Future<void> comment(
@@ -10,10 +11,8 @@ class CommentViewModel {
     logger.d("Call: CommentViewModel comment");
 
     try {
-      final currentUserUid = ref.watch(currentUserProviderProvider);
-      if (currentUserUid == null) {
-        throw Exception('DEBUG: Not found user ID');
-      }
+      final currentUserUid =
+          ref.read(baseAuthenticatedUsecaseProvider).getCurrentUserId();
 
       postService.comment(
           postId: postId,
