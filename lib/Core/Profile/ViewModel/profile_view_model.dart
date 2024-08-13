@@ -1,12 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_clone/Core/Profile/Service/profile_service.dart';
-import 'package:instagram_clone/Model/Entity/Post/post.dart';
-import 'package:instagram_clone/Model/Entity/User/user.dart';
-import 'package:instagram_clone/Utils/constant.dart';
 
+import '../../../Model/Entity/Post/post.dart';
+import '../../../Model/Entity/User/user.dart';
 import '../../../Usecase/Auth/BaseAuthenticatedUsecase/base_authenticated_usecase_impl.dart';
+import '../../../Usecase/User/UserFollowUsecase/user_follow_usecase_impl.dart';
+import '../../../Utils/constant.dart';
+import '../Service/profile_service.dart';
 
 class ProfileViewModel {
   Future<User?> fetchUser({required String userId}) async {
@@ -78,19 +79,13 @@ class ProfileViewModel {
   Future follow({required WidgetRef ref, required String uid}) async {
     logger.d("Call: ProfileViewModel follow");
 
-    final currentUserUid =
-        ref.read(baseAuthenticatedUsecaseProvider).getCurrentUserId();
-
-    await userService.follow(currentUserUid: currentUserUid, uid: uid);
+    await ref.read(userFollowUsecaseProvider).followUser(uid: uid);
   }
 
   Future unfollow({required WidgetRef ref, required String uid}) async {
     logger.d("Call: ProfileViewModel unfollow");
 
-    final currentUserUid =
-        ref.read(baseAuthenticatedUsecaseProvider).getCurrentUserId();
-
-    await userService.unfollow(currentUserUid: currentUserUid, uid: uid);
+    await ref.read(userFollowUsecaseProvider).unfollowUser(uid: uid);
   }
 
   Future<bool> checkIfUserFollowed({required String uid}) async {
