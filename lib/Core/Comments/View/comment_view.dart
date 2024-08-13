@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart'; // hooks_riverpodをインポート
-import 'package:instagram_clone/Core/Comments/ViewModel/comment_view_model.dart';
-import 'package:instagram_clone/Core/Components/circular_profile_image_view.dart';
-import 'package:instagram_clone/Model/Entity/Post/post.dart';
-import 'package:instagram_clone/Provider/PostProvider/post_comment_provider.dart';
-import 'package:instagram_clone/Utils/constant.dart';
-import 'package:instagram_clone/Utils/format_date.dart';
-import 'package:intl/intl.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../../Model/Entity/Post/post.dart';
+import '../../../State/Post/PostCommentState/post_comment_controller.dart';
+import '../../../Utils/constant.dart';
+import '../../../Utils/format_date.dart';
+import '../../Components/circular_profile_image_view.dart';
+import '../ViewModel/comment_view_model.dart';
 
 class CommentView extends HookConsumerWidget {
   final Post post;
@@ -16,7 +16,8 @@ class CommentView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final commentStream = ref.watch(PostCommentProviderProvider(post.postId));
+    final commentStream =
+        ref.watch(PostCommentControllerProvider(postId: post.postId));
 
     final commentController = useTextEditingController();
     final isValidation = useState(false);

@@ -31,7 +31,6 @@ dependencies:
   flutter_image_compress:
 
   # UI
-  intl:
   timeago:
   font_awesome_flutter:
   flex_color_scheme:
