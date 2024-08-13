@@ -13,7 +13,7 @@ class FeedViewModel {
 
     try {
       final post =
-          await ref.read(postFetchUsecaseProvider).fetchPosts(postId: postId);
+          await ref.read(postFetchUsecaseProvider).fetchPost(postId: postId);
 
       await postService.like(
           postId: postId,
@@ -34,7 +34,7 @@ class FeedViewModel {
 
     try {
       final post =
-          await ref.read(postFetchUsecaseProvider).fetchPosts(postId: postId);
+          await ref.read(postFetchUsecaseProvider).fetchPost(postId: postId);
 
       await postService.unlike(
           postId: postId,

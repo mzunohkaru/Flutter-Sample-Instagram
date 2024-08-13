@@ -17,7 +17,7 @@ class PostRepositoryImpl implements PostRepository {
   final FirebaseFirestore _firestore;
 
   @override
-  Future<Post> fetchPosts({required String postId}) async {
+  Future<Post> fetchPost({required String postId}) async {
     final postSnapshot = await _firestore.collection("posts").doc(postId).get();
     return Post.fromJson(postSnapshot.data()!);
   }

@@ -1,5 +1,5 @@
 import '../../../Model/Entity/Post/post.dart';
 
 abstract class PostRepository {
-  Future<Post> fetchPosts({required String postId});
+  Future<Post> fetchPost({required String postId});
 }

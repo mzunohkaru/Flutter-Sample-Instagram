@@ -25,7 +25,7 @@ class PostFetchUsecaseImpl implements PostFetchUsecase {
   final PostRepository _postRepository;
 
   @override
-  Future<Post> fetchPosts({required String postId}) async {
-    return await _postRepository.fetchPosts(postId: postId);
+  Future<Post> fetchPost({required String postId}) async {
+    return await _postRepository.fetchPost(postId: postId);
   }
 }
