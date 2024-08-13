@@ -1,23 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../Model/Entity/Post/post.dart';
 import '../Utils/constant.dart';
 
 class PostService {
-  Future<Post> fetchPost({required String postId}) async {
-    logger.d("Call: PostService fetchPost");
-
-    final postSnapshot = await PostCollections.doc(postId).get();
-    return Post.fromJson(postSnapshot.data()!);
-  }
-
   Future uploadPost(
       {required String postId,
       required String currentUserUid,
       required String caption,
       required List<String> postImageUrls}) async {
     logger.d("Call: PostService uploadPost");
-    // FirebaseStoreに保存
+
     await PostCollections.doc(postId).set({
       'postId': postId,
       'ownerUid': currentUserUid,
@@ -27,32 +19,6 @@ class PostService {
       'likes': 0,
       'likeUsers': [],
       'didLike': false,
-    });
-  }
-
-  Future comment(
-      {required String postId,
-      required String commentText,
-      required String currentUserUid}) async {
-    logger.d("Call: PostService comment");
-
-    final postDoc = PostCollections.doc(postId);
-    final postSnapshot = await postDoc.get();
-
-    if (!postSnapshot.exists) {
-      throw Exception('DEBUG: Not found post');
-    }
-    final postCommentId = postDoc.collection('post-comments').id;
-    final postOwnerUid = postSnapshot.data()!['ownerUid'];
-    final timestamp = Timestamp.now();
-
-    await postDoc.collection('post-comments').add({
-      'commentId': postCommentId,
-      'postOwnerUid': postOwnerUid,
-      'commentText': commentText,
-      'postId': postId,
-      'createAt': timestamp,
-      'commentOwnerUid': currentUserUid,
     });
   }
 
