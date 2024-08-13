@@ -71,11 +71,15 @@ class CommentView extends HookConsumerWidget {
                     ),
                   );
                 } else {
+                  // コメントを時間順にソート
+                  final sortedComments = comments.toList()
+                    ..sort((a, b) => b.createAt.compareTo(a.createAt));
+
                   return ListView.builder(
                     reverse: true,
-                    itemCount: comments.length,
+                    itemCount: sortedComments.length,
                     itemBuilder: (context, index) {
-                      final comment = comments[index];
+                      final comment = sortedComments[index];
 
                       return Padding(
                         padding: const EdgeInsets.symmetric(
