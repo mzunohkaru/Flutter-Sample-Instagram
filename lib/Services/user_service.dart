@@ -1,5 +1,5 @@
-import 'package:instagram_clone/Model/Entity/User/user.dart';
-import 'package:instagram_clone/Utils/constant.dart';
+import '../Model/Entity/User/user.dart';
+import '../Utils/constant.dart';
 
 class UserService {
   Future<User> fetchUser({required String uid}) async {

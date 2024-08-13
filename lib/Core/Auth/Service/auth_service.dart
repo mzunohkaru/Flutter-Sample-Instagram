@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:instagram_clone/Core/Auth/Service/auth_error.dart';
-import 'package:instagram_clone/Utils/constant.dart';
+
+import '../../../Utils/constant.dart';
+import 'auth_error.dart';
 
 class AuthService {
   AuthService._privateConstructor();

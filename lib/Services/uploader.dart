@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:instagram_clone/Utils/constant.dart';
+
+import '../Utils/constant.dart';
 
 class Uploader {
   Future<List<String>> uploadStorage(
