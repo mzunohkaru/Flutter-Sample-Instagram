@@ -33,6 +33,19 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
+  Future<bool> checkIfUserFollowed(
+      {required String currentUid, required String uid}) async {
+    final snapshot = await _firestore
+        .collection("following")
+        .doc(currentUid)
+        .collection("user-following")
+        .doc(uid)
+        .get();
+
+    return snapshot.exists;
+  }
+
+  @override
   Future<void> followUser(
       {required String currentUid, required String uid}) async {
     await _firestore
@@ -50,10 +63,14 @@ class UserRepositoryImpl implements UserRepository {
         .set({});
 
     await _firestore
+        .collection('users')
         .doc(currentUid)
         .update({'following': FieldValue.increment(1)});
 
-    await _firestore.doc(uid).update({'followers': FieldValue.increment(1)});
+    await _firestore
+        .collection('users')
+        .doc(uid)
+        .update({'followers': FieldValue.increment(1)});
   }
 
   @override

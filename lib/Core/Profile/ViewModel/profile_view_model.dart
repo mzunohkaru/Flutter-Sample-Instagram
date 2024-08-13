@@ -88,12 +88,12 @@ class ProfileViewModel {
     await ref.read(userFollowUsecaseProvider).unfollowUser(uid: uid);
   }
 
-  Future<bool> checkIfUserFollowed({required String uid}) async {
+  Future<bool> checkIfUserFollowed(
+      {required WidgetRef ref, required String uid}) async {
     logger.d("Call: ProfileViewModel checkIfUserFollowed");
 
-    final currentUserUid = auth.currentUser!.uid;
-
-    return await userService.checkIfUserFollowed(
-        currentUserUid: currentUserUid, uid: uid);
+    return await ref
+        .read(userFollowUsecaseProvider)
+        .checkIfUserFollowed(uid: uid);
   }
 }

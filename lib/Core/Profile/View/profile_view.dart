@@ -31,7 +31,7 @@ class ProfileView extends HookConsumerWidget {
     useEffect(() {
       void checkFollowStatus() async {
         final isFollowing =
-            await viewModel.checkIfUserFollowed(uid: user.userId);
+            await viewModel.checkIfUserFollowed(ref: ref, uid: user.userId);
         follow.value = isFollowing;
       }
 

@@ -31,6 +31,13 @@ class UserFollowUsecaseImpl implements UserFollowUsecase {
   final BaseAuthenticatedUsecase _baseAuthenticatedUsecase;
 
   @override
+  Future<bool> checkIfUserFollowed({required String uid}) async {
+    final currentUid = _baseAuthenticatedUsecase.getCurrentUserId();
+    return await _userRepository.checkIfUserFollowed(
+        currentUid: currentUid, uid: uid);
+  }
+
+  @override
   Future<void> followUser({required String uid}) async {
     final currentUid = _baseAuthenticatedUsecase.getCurrentUserId();
     await _userRepository.followUser(currentUid: currentUid, uid: uid);
