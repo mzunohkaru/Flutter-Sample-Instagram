@@ -31,4 +31,56 @@ class UserRepositoryImpl implements UserRepository {
       return users;
     });
   }
+
+  @override
+  Future<void> followUser(
+      {required String currentUid, required String uid}) async {
+    await _firestore
+        .collection("following")
+        .doc(currentUid)
+        .collection("user-following")
+        .doc(uid)
+        .set({});
+
+    await _firestore
+        .collection("followers")
+        .doc(uid)
+        .collection("user-followers")
+        .doc(currentUid)
+        .set({});
+
+    await _firestore
+        .doc(currentUid)
+        .update({'following': FieldValue.increment(1)});
+
+    await _firestore.doc(uid).update({'followers': FieldValue.increment(1)});
+  }
+
+  @override
+  Future<void> unfollowUser(
+      {required String currentUid, required String uid}) async {
+    await _firestore
+        .collection("following")
+        .doc(currentUid)
+        .collection("user-following")
+        .doc(uid)
+        .delete();
+
+    await _firestore
+        .collection("followers")
+        .doc(uid)
+        .collection("user-followers")
+        .doc(currentUid)
+        .delete();
+
+    await _firestore
+        .collection('users')
+        .doc(currentUid)
+        .update({'following': FieldValue.increment(-1)});
+
+    await _firestore
+        .collection('users')
+        .doc(uid)
+        .update({'followers': FieldValue.increment(-1)});
+  }
 }
