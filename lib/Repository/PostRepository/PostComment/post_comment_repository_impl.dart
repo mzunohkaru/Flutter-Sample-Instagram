@@ -29,4 +29,34 @@ class PostCommentRepositoryImpl implements PostCommentRepository {
           .toList();
     });
   }
+
+  @override
+  Future comment(
+      {required String postId,
+      required String commentText,
+      required String currentUid}) async {
+    final postDoc = _firestore.collection('posts').doc(postId);
+    final postSnapshot = await postDoc.get();
+
+    if (!postSnapshot.exists) {
+      throw Exception('DEBUG: Not found post');
+    }
+    final postCommentId = postDoc.collection('post-comments').id;
+    final postOwnerUid = postSnapshot.data()!['ownerUid'];
+    final timestamp = Timestamp.now();
+
+    final postCommentData = PostComment(
+      commentId: postCommentId,
+      postOwnerUid: postOwnerUid,
+      commentText: commentText,
+      postId: postId,
+      createAt: timestamp,
+      commentOwnerUid: currentUid,
+      user: null,
+    );
+
+    final postComment = postCommentData.toJson();
+
+    await postDoc.collection('post-comments').add(postComment);
+  }
 }
