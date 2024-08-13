@@ -7,10 +7,10 @@ import '../../../Usecase/User/AllUserUsecase/all_user_usecase.dart';
 import '../../../Usecase/User/AllUserUsecase/all_user_usecase_impl.dart';
 import '../../../Utils/constant.dart';
 
-part 'user_controller.g.dart';
+part 'explore_controller.g.dart';
 
 @riverpod
-class UserController extends _$UserController {
+class ExploreController extends _$ExploreController {
   late final BaseAuthenticatedUsecase _baseAuthenticatedUsecase;
   late final AllUserUsecase _allUserUsecase;
   @override

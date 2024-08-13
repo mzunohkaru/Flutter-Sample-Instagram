@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_controller.dart';
+part of 'explore_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userControllerHash() => r'740689e594d3512cac766ce3f6314eca7c1dc9f1';
+String _$exploreControllerHash() => r'473e3524b01a057fdf1509770edb25ac0035df73';
 
-/// See also [UserController].
-@ProviderFor(UserController)
-final userControllerProvider =
-    AutoDisposeAsyncNotifierProvider<UserController, List<User>>.internal(
-  UserController.new,
-  name: r'userControllerProvider',
+/// See also [ExploreController].
+@ProviderFor(ExploreController)
+final exploreControllerProvider =
+    AutoDisposeAsyncNotifierProvider<ExploreController, List<User>>.internal(
+  ExploreController.new,
+  name: r'exploreControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$userControllerHash,
+      : _$exploreControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$UserController = AutoDisposeAsyncNotifier<List<User>>;
+typedef _$ExploreController = AutoDisposeAsyncNotifier<List<User>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

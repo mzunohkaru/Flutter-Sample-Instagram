@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../Model/Entity/User/user.dart';
-import '../../../State/User/UserState/user_controller.dart';
+import '../../../State/Explore/ExploreState/explore_controller.dart';
 import '../../../Utils/constant.dart';
 import '../../Profile/View/profile_view.dart';
 
@@ -13,7 +13,7 @@ class ExploreView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // 全てのユーザーを取得
-    final allUsers = ref.watch(userControllerProvider).when(
+    final allUsers = ref.watch(exploreControllerProvider).when(
       data: (data) {
         logger.i("Successful: Fetch user data of ${data.length} cases");
         return data;

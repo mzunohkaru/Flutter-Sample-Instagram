@@ -28,52 +28,6 @@ class UserService {
         .delete();
   }
 
-  Future follow({required String currentUserUid, required String uid}) async {
-    logger.d("Call: UserService follow");
-
-    await FollowingCollections.doc(currentUserUid)
-        .collection("user-following")
-        .doc(uid)
-        .set({});
-
-    await FollowerCollections.doc(uid)
-        .collection("user-followers")
-        .doc(currentUserUid)
-        .set({});
-
-    final currentUser = await fetchUser(uid: currentUserUid);
-
-    await UserCollections.doc(currentUserUid)
-        .update({'following': currentUser.following + 1});
-
-    final user = await fetchUser(uid: uid);
-
-    await UserCollections.doc(uid).update({'followers': user.followers + 1});
-  }
-
-  Future unfollow({required String currentUserUid, required String uid}) async {
-    logger.d("Call: UserService unfollow");
-
-    await FollowingCollections.doc(currentUserUid)
-        .collection("user-following")
-        .doc(uid)
-        .delete();
-
-    await FollowerCollections.doc(uid)
-        .collection("user-followers")
-        .doc(currentUserUid)
-        .delete();
-
-    final currentUser = await fetchUser(uid: currentUserUid);
-
-    await UserCollections.doc(currentUserUid)
-        .update({'following': currentUser.following - 1});
-
-    final user = await fetchUser(uid: uid);
-
-    await UserCollections.doc(uid).update({'followers': user.followers - 1});
-  }
-
   Future<bool> checkIfUserFollowed(
       {required String currentUserUid, required String uid}) async {
     logger.d("Call: UserService checkIfUserFollowed");
