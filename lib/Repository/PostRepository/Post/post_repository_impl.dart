@@ -30,6 +30,11 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
+  Future<void> createPost({required Post post}) async {
+    await _firestore.collection("posts").doc(post.postId).set(post.toJson());
+  }
+
+  @override
   Future<void> updatePost({required Post post}) {
     return _firestore
         .collection("posts")
