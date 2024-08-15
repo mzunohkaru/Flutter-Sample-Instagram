@@ -2,13 +2,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:instagram_clone/Core/Components/circular_profile_image_view.dart';
-import 'package:instagram_clone/Core/Feed/ViewModel/feed_view_model.dart';
-import 'package:instagram_clone/Core/Profile/View/profile_view.dart';
-import 'package:instagram_clone/Model/Entity/Post/post.dart';
-import 'package:instagram_clone/Utils/constant.dart';
-import 'package:instagram_clone/Utils/format_date.dart';
-import 'package:instagram_clone/Widgets/sheet_widget.dart';
+
+import '../../../Model/Entity/Post/post.dart';
+import '../../../Utils/constant.dart';
+import '../../../Utils/format_date.dart';
+import '../../../Widgets/sheet_widget.dart';
+import '../../Components/circular_profile_image_view.dart';
+import '../../Profile/View/profile_view.dart';
+import '../ViewModel/feed_view_model.dart';
 
 class FeedCell extends HookConsumerWidget {
   final Post post;
@@ -21,6 +22,7 @@ class FeedCell extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentCarouselPosition = useState(0);
+    final didLike = useState(post.didLike);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -117,16 +119,18 @@ class FeedCell extends HookConsumerWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  if (!post.didLike) {
-                    viewModel.like(ref: ref, postId: post.postId);
-                  } else {
+                  if (didLike.value) {
                     viewModel.unlike(
                       ref: ref,
                       postId: post.postId,
                     );
+                    didLike.value = false;
+                  } else {
+                    viewModel.like(ref: ref, postId: post.postId);
+                    didLike.value = true;
                   }
                 },
-                icon: post.didLike
+                icon: didLike.value
                     ? const Icon(
                         Icons.favorite,
                         color: Colors.red,
