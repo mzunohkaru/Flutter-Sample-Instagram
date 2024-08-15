@@ -10,5 +10,6 @@ class LoginViewModel {
     } on FirebaseAuthException catch (e) {
       return getLoginErrorMessage(e.code);
     }
+    return null;
   }
 }

@@ -17,6 +17,7 @@ class AuthService {
     await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
     print("ログイン成功");
+    return null;
   }
 
   Future<String?> signUp(
@@ -27,6 +28,7 @@ class AuthService {
         .createUserWithEmailAndPassword(email: email, password: password);
     await _saveUserToFirestore(userCredential.user!.uid, username, email);
     print("サインアップ成功");
+    return null;
   }
 
   Future _saveUserToFirestore(
