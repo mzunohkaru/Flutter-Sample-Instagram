@@ -5,7 +5,6 @@ import 'package:instagram_clone/Core/Auth/Service/auth_service.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:instagram_clone/Services/post_service.dart';
 import 'package:instagram_clone/Services/uploader.dart';
-import 'package:instagram_clone/Services/user_service.dart';
 import 'package:logger/logger.dart';
 
 final authService = AuthService.instance;
@@ -20,7 +19,6 @@ final PostCollections = firestore.collection('posts');
 final FollowingCollections = firestore.collection("following");
 final FollowerCollections = firestore.collection("followers");
 
-final userService = UserService();
 final postService = PostService();
 final uploader = Uploader();
 

@@ -102,7 +102,8 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<bool> checkIfPostLiked({required String currentUserId, required String postId}) async {
+  Future<bool> checkIfPostLiked(
+      {required String currentUserId, required String postId}) async {
     final userLikedSnapshot = await _firestore
         .collection("users")
         .doc(currentUserId)
@@ -110,5 +111,32 @@ class UserRepositoryImpl implements UserRepository {
         .doc(postId)
         .get();
     return userLikedSnapshot.exists;
+  }
+
+  @override
+  Future<void> updateUser({required User user}) async {
+    await _firestore.collection('users').doc(user.userId).update(user.toJson());
+  }
+
+  @override
+  Future<void> createUserLike(
+      {required String currentUserId, required String postId}) async {
+    await _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('user-likes')
+        .doc(postId)
+        .set({});
+  }
+
+  @override
+  Future<void> deleteUserLike(
+      {required String currentUserId, required String postId}) async {
+    await _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('user-likes')
+        .doc(postId)
+        .delete();
   }
 }

@@ -21,38 +21,4 @@ class PostService {
       'didLike': false,
     });
   }
-
-  Future like(
-      {required String postId,
-      required String currentUserUid,
-      required int postLikes}) async {
-    logger.d("Call: PostService like");
-
-    await PostCollections.doc(postId).update({
-      'likeUsers': FieldValue.arrayUnion([currentUserUid]),
-      'likes': postLikes + 1
-    });
-
-    final postOwnerUid =
-        (await PostCollections.doc(postId).get()).data()!['ownerUid'];
-    await UserCollections.doc(postOwnerUid)
-        .update({'likes': FieldValue.increment(1)});
-  }
-
-  Future unlike(
-      {required String postId,
-      required String currentUserUid,
-      required int postLikes}) async {
-    logger.d("Call: PostService unlike");
-
-    await PostCollections.doc(postId).update({
-      'likeUsers': FieldValue.arrayRemove([currentUserUid]),
-      'likes': postLikes - 1
-    });
-
-    final postOwnerUid =
-        (await PostCollections.doc(postId).get()).data()!['ownerUid'];
-    await UserCollections.doc(postOwnerUid)
-        .update({'likes': FieldValue.increment(-1)});
-  }
 }

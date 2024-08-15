@@ -18,13 +18,8 @@ class PostRepositoryImpl implements PostRepository {
 
   @override
   Stream<List<Post>> streamPostList() {
-    return _firestore
-        .collection("posts")
-        .snapshots()
-        .map((snapshot) {
-      return snapshot.docs
-          .map((doc) => Post.fromJson(doc.data()))
-          .toList();
+    return _firestore.collection("posts").snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => Post.fromJson(doc.data())).toList();
     });
   }
 
@@ -32,5 +27,13 @@ class PostRepositoryImpl implements PostRepository {
   Future<Post> fetchPost({required String postId}) async {
     final postSnapshot = await _firestore.collection("posts").doc(postId).get();
     return Post.fromJson(postSnapshot.data()!);
+  }
+
+  @override
+  Future<void> updatePost({required Post post}) {
+    return _firestore
+        .collection("posts")
+        .doc(post.postId)
+        .update(post.toJson());
   }
 }
