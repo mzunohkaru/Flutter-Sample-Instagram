@@ -9,4 +9,6 @@ abstract class UserRepository {
       {required String currentUid, required String uid});
   Future<void> followUser({required String currentUid, required String uid});
   Future<void> unfollowUser({required String currentUid, required String uid});
+
+  Future<bool> checkIfPostLiked({required String currentUserId, required String postId});
 }

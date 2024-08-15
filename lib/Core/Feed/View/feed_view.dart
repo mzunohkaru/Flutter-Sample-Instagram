@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_clone/Core/Feed/View/feed_cell.dart';
-import 'package:instagram_clone/Core/Feed/ViewModel/feed_view_model.dart';
-import 'package:instagram_clone/Provider/PostProvider/post_provider.dart';
+
+import '../../../State/Post/PostFetchState/post_fetch_controller.dart';
+import '../ViewModel/feed_view_model.dart';
+import 'feed_cell.dart';
 
 class FeedView extends ConsumerWidget {
   final viewModel = FeedViewModel();
@@ -11,7 +12,8 @@ class FeedView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final postStream = ref.watch(postProviderProvider);
+    final postStream = ref.watch(postFetchControllerProvider);
+
     return postStream.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Center(child: Text('エラー: $error')),

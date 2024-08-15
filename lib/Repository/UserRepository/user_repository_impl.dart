@@ -100,4 +100,15 @@ class UserRepositoryImpl implements UserRepository {
         .doc(uid)
         .update({'followers': FieldValue.increment(-1)});
   }
+
+  @override
+  Future<bool> checkIfPostLiked({required String currentUserId, required String postId}) async {
+    final userLikedSnapshot = await _firestore
+        .collection("users")
+        .doc(currentUserId)
+        .collection("user-likes")
+        .doc(postId)
+        .get();
+    return userLikedSnapshot.exists;
+  }
 }
